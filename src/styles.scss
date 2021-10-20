@@ -1,0 +1,14 @@
+@use './reset.scss';
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  background-color: #000;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+}
