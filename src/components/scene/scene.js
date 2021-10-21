@@ -25,8 +25,8 @@ const Scene = {
       drawHeight,
       0,
       0,
-      drawWidth,
-      drawHeight
+      400,
+      300
     )
 
     // console.log(state.predictions[0])
@@ -35,7 +35,7 @@ const Scene = {
     Scene.currentState = state
 
     Scene.canvas.setAttribute('width', 400)
-    Scene.canvas.setAttribute('height', 400)
+    Scene.canvas.setAttribute('height', 300)
     document.body.appendChild(Scene.canvas)
   },
 }
