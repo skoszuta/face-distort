@@ -3,6 +3,7 @@ import '@tensorflow/tfjs-backend-wasm'
 import * as blazeface from '@tensorflow-models/blazeface'
 import * as tf from '@tensorflow/tfjs-core'
 import Scene from './components/scene/scene'
+import Texture from './components/texture/texture'
 import Settings from './components/settings/settings'
 
 const state = {
@@ -11,7 +12,7 @@ const state = {
   imageCapture: null,
   predictions: null,
   currentFrameBitmap: null,
-  camera: null
+  camera: null,
 }
 
 async function run() {
@@ -28,7 +29,9 @@ async function run() {
   state.predictions = predictions
   state.currentFrameBitmap = currentFrameBitmap
 
-  Scene.draw(state)
+  Texture.draw(state)
+  Scene.updateMaterial()
+  Scene.animate()
 
   requestAnimationFrame(run)
 }
@@ -38,7 +41,8 @@ async function main() {
 
   state.blazefaceInstance = await blazeface.load()
 
-  Scene.init(state)
+  Texture.init(state)
+  Scene.init()
   await Settings.init(state)
 
   requestAnimationFrame(run)
