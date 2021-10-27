@@ -7,7 +7,8 @@ import Texture from '../texture/texture'
 
 let camera, scene, renderer, composer, distortPass
 let mesh, material
-let frame = 0
+let tick = 0
+let initTimestamp
 
 function init() {
   renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -40,10 +41,12 @@ function init() {
   composer.addPass(new RenderPass(scene, camera))
 
   distortPass = new ShaderPass(DistortShader)
-  distortPass.uniforms['frame'].value = frame
+  distortPass.uniforms['tick'].value = tick
   composer.addPass(distortPass)
 
   window.addEventListener('resize', onWindowResize)
+
+  initTimestamp = new Date().getTime()
 }
 
 function updateMaterial() {
@@ -60,8 +63,8 @@ function onWindowResize() {
 
 function animate() {
   requestAnimationFrame(animate)
-  frame++
-  distortPass.uniforms['frame'].value = frame
+  tick = Math.ceil((new Date().getTime() - initTimestamp) / 16.67)
+  distortPass.uniforms['tick'].value = tick
   composer.render()
 }
 

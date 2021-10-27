@@ -1,5 +1,8 @@
 import './settings.scss'
 
+const VIDEO_WIDTH = 320
+const VIDEO_HEIGHT = 240
+
 const Settings = {
   rootEl: document.createElement('aside'),
   state: null,
@@ -34,7 +37,7 @@ const Settings = {
   setCamera: async (deviceId) => {
     Settings.state.camera = deviceId
     Settings.state.stream = await navigator.mediaDevices.getUserMedia({
-      video: { deviceId: Settings.state.camera },
+      video: { deviceId: Settings.state.camera, width: VIDEO_WIDTH, height: VIDEO_HEIGHT },
     })
     Settings.state.imageCapture = new ImageCapture(
       Settings.state.stream.getVideoTracks()[0]

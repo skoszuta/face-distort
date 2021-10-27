@@ -1,7 +1,7 @@
 const DistortShader = {
   uniforms: {
     tDiffuse: { value: null },
-    frame: { value: 0 },
+    tick: { value: 0 },
   },
 
   vertexShader: /* glsl */ `
@@ -13,7 +13,7 @@ const DistortShader = {
 
   fragmentShader: /* glsl */ `
 		uniform sampler2D tDiffuse;
-		uniform float frame;
+		uniform float tick;
 		varying vec2 vUv;
 
 		// Some useful functions
@@ -91,7 +91,7 @@ const DistortShader = {
 		}
 		
 		void main() {
-			vec2 newUv = vUv + vec2(snoise(3. * vUv + frame / 1000.)) * 0.05;
+			vec2 newUv = vUv + vec2(snoise(3. * vUv + tick / 1000.)) * 0.05;
 
 			gl_FragColor = texture2D( tDiffuse, newUv );
 		}`,
