@@ -31,7 +31,6 @@ async function run() {
 
   Texture.draw(state)
   Scene.updateMaterial()
-  Scene.animate()
 
   requestAnimationFrame(run)
 }
@@ -46,6 +45,7 @@ async function main() {
   await Settings.init(state)
 
   requestAnimationFrame(run)
+  Scene.animate()
 }
 
 main()

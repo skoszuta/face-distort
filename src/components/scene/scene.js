@@ -59,8 +59,7 @@ function onWindowResize() {
 }
 
 function animate() {
-  frame++
-  frame++
+  requestAnimationFrame(animate)
   frame++
   distortPass.uniforms['frame'].value = frame
   composer.render()
