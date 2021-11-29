@@ -3,7 +3,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import DistortShader from './services/DistortShader'
-import Texture from '../texture/texture'
+import StylizedMaterial from './services/StylizedMaterial'
 
 let camera, scene, renderer, composer, distortPass
 let mesh, material
@@ -30,8 +30,7 @@ function init() {
 
   const geometry = new THREE.PlaneBufferGeometry()
 
-  material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide })
-  material.map = new THREE.CanvasTexture(Texture.canvas)
+  material = StylizedMaterial.create()
 
   mesh = new THREE.Mesh(geometry, material)
 
@@ -50,7 +49,7 @@ function init() {
 }
 
 function updateMaterial() {
-  material.map.needsUpdate = true
+  material.uniforms.map.value.needsUpdate = true
 }
 
 function onWindowResize() {

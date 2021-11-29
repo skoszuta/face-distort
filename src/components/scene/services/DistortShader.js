@@ -91,7 +91,7 @@ const DistortShader = {
 		}
 		
 		void main() {
-			vec2 newUv = vUv + vec2(snoise(3. * vUv + tick / 1000.)) * 0.05;
+			vec2 newUv = vUv + vec2(snoise(3. * vUv + tick / 1000.)) * 0.01;
 
 			gl_FragColor = texture2D( tDiffuse, newUv );
 		}`,

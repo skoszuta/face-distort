@@ -17,7 +17,7 @@ const Settings = {
     const cameraOptions = await renderCameraOptions(devices)
     Settings.rootEl.innerHTML = `
             <select>
-                <option value="" disabled selected>Camera</option>
+                <option value="" disabled selected>Camera selection</option>
                 ${cameraOptions}
             </select>
         `
