@@ -6,14 +6,13 @@ const VIDEO_HEIGHT = 240
 const Settings = {
   rootEl: document.createElement('aside'),
   state: null,
-  visible: false,
+  isOpen: false,
   async init(state) {
     Settings.state = state
 
     const devices = await navigator.mediaDevices.enumerateDevices()
-    await Settings.setCamera(
-      devices.filter((device) => device.kind === 'videoinput')[0].deviceId
-    )
+    const deviceId = localStorage.getItem('deviceId') || devices.filter((device) => device.kind === 'videoinput')[0].deviceId
+    await Settings.setCamera(deviceId)
 
     const cameraOptions = await renderCameraOptions(devices)
     Settings.rootEl.innerHTML = `
@@ -28,14 +27,31 @@ const Settings = {
 
     Settings.rootEl.classList.add('settings')
 
+    if (Settings.isOpen) {
+      Settings.rootEl.classList.add('is-open')
+    }
+
     document.body.appendChild(Settings.rootEl)
+
+    document.addEventListener('keyup', Settings.handleKeyUp)
   },
   handleCameraChange: (e) => {
     Settings.setCamera(e.target.value)
   },
-  handleKeyDown: (e) => {},
+  handleKeyUp: (e) => {
+    if (e.keyCode === 83) {
+      if (Settings.isOpen) {
+        Settings.rootEl.classList.remove('is-open')
+        Settings.isOpen = false;
+      } else {
+        Settings.rootEl.classList.add('is-open')
+        Settings.isOpen = true;
+      }
+    }
+  },
   setCamera: async (deviceId) => {
     Settings.state.camera = deviceId
+    localStorage.setItem('deviceId', deviceId)
     Settings.state.stream = await navigator.mediaDevices.getUserMedia({
       video: { deviceId: Settings.state.camera, width: VIDEO_WIDTH, height: VIDEO_HEIGHT },
     })
