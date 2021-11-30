@@ -13,6 +13,7 @@ const state = {
   predictions: null,
   currentFrameBitmap: null,
   camera: null,
+  lastSnapTick: 0,
 }
 
 async function run() {
@@ -29,9 +30,6 @@ async function run() {
   state.predictions = predictions
   state.currentFrameBitmap = currentFrameBitmap
 
-  Texture.draw(state)
-  Scene.updateMaterial()
-
   requestAnimationFrame(run)
 }
 
@@ -41,7 +39,7 @@ async function main() {
   state.blazefaceInstance = await blazeface.load()
 
   Texture.init(state)
-  Scene.init()
+  Scene.init(state)
   await Settings.init(state)
 
   requestAnimationFrame(run)

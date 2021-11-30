@@ -4,13 +4,18 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import DistortShader from './services/DistortShader'
 import StylizedMaterial from './services/StylizedMaterial'
+import Texture from '../texture/texture'
+
+const FRAME_GRAB_INTERVAL = 50
 
 let camera, scene, renderer, composer, distortPass
 let mesh, material
 let tick = 0
 let initTimestamp
 
-function init() {
+function init(state) {
+  Scene.state = state
+
   renderer = new THREE.WebGLRenderer({ antialias: true })
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth, window.innerHeight)
@@ -62,12 +67,22 @@ function onWindowResize() {
 
 function animate() {
   requestAnimationFrame(animate)
+
   tick = Math.ceil((new Date().getTime() - initTimestamp) / 16.67)
+
   distortPass.uniforms['tick'].value = tick
+
+  if (tick - Scene.state.lastSnapTick > FRAME_GRAB_INTERVAL) {
+    Texture.draw(Scene.state)
+    Scene.updateMaterial()
+    Scene.state.lastSnapTick = tick
+  }
+
   composer.render()
 }
 
 const Scene = {
+  state: null,
   init,
   animate,
   updateMaterial,

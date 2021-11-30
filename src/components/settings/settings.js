@@ -11,7 +11,9 @@ const Settings = {
     Settings.state = state
 
     const devices = await navigator.mediaDevices.enumerateDevices()
-    const deviceId = localStorage.getItem('deviceId') || devices.filter((device) => device.kind === 'videoinput')[0].deviceId
+    const deviceId =
+      localStorage.getItem('deviceId') ||
+      devices.filter((device) => device.kind === 'videoinput')[0].deviceId
     await Settings.setCamera(deviceId)
 
     const cameraOptions = await renderCameraOptions(devices)
@@ -42,10 +44,10 @@ const Settings = {
     if (e.keyCode === 83) {
       if (Settings.isOpen) {
         Settings.rootEl.classList.remove('is-open')
-        Settings.isOpen = false;
+        Settings.isOpen = false
       } else {
         Settings.rootEl.classList.add('is-open')
-        Settings.isOpen = true;
+        Settings.isOpen = true
       }
     }
   },
@@ -53,11 +55,18 @@ const Settings = {
     Settings.state.camera = deviceId
     localStorage.setItem('deviceId', deviceId)
     Settings.state.stream = await navigator.mediaDevices.getUserMedia({
-      video: { deviceId: Settings.state.camera, width: VIDEO_WIDTH, height: VIDEO_HEIGHT },
+      video: {
+        deviceId: Settings.state.camera,
+        width: VIDEO_WIDTH,
+        height: VIDEO_HEIGHT,
+      },
     })
     Settings.state.imageCapture = new ImageCapture(
       Settings.state.stream.getVideoTracks()[0]
     )
+  },
+  resetCamera: async () => {
+    return await Settings.setCamera(Settings.state.camera)
   },
 }
 
