@@ -25,7 +25,7 @@ function init(state) {
   scene = new THREE.Scene()
 
   camera = new THREE.PerspectiveCamera(
-    60,
+    80,
     window.innerWidth / window.innerHeight,
     0.1,
     100
@@ -72,11 +72,11 @@ function animate() {
 
   distortPass.uniforms['tick'].value = tick
 
-  if (tick - Scene.state.lastSnapTick > FRAME_GRAB_INTERVAL) {
+  // if (tick - Scene.state.lastSnapTick > FRAME_GRAB_INTERVAL) {
     Texture.draw(Scene.state)
     Scene.updateMaterial()
-    Scene.state.lastSnapTick = tick
-  }
+    // Scene.state.lastSnapTick = tick
+  // }
 
   composer.render()
 }
