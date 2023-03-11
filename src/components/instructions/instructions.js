@@ -1,6 +1,6 @@
 import './instructions.scss'
 
-const DURATION_MS = 15000
+const DURATION_MS = 10000
 
 const Instructions = {
   render() {

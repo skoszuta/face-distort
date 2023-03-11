@@ -29,7 +29,7 @@ const StylizedMaterial = {
             vec4 bnwColor = vec4(luminance, luminance, luminance, 1.);
             vec4 amplifiedContrast = (bnwColor - 0.5) * 2. + 0.5;
 
-            gl_FragColor = originalColor;
+            gl_FragColor = bnwColor;
           }
           `,
     })
