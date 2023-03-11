@@ -6,7 +6,7 @@ import DistortShader from './services/DistortShader'
 import StylizedMaterial from './services/StylizedMaterial'
 import Texture from '../texture/texture'
 
-const FRAME_GRAB_INTERVAL = 50
+const FRAME_GRAB_INTERVAL = 5
 
 let camera, scene, renderer, composer, distortPass
 let mesh, material

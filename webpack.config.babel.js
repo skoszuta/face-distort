@@ -33,5 +33,5 @@ export default {
   devServer: {
     static: path.join(__dirname, 'public'),
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [new HtmlWebpackPlugin({ title: 'Seek and distort' })],
 }

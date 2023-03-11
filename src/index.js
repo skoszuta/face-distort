@@ -5,6 +5,7 @@ import * as tf from '@tensorflow/tfjs-core'
 import Scene from './components/scene/scene'
 import Texture from './components/texture/texture'
 import Settings from './components/settings/settings'
+import Instructions from './components/instructions/instructions'
 
 const state = {
   blazefaceInstance: null,
@@ -44,6 +45,8 @@ async function main() {
 
   requestAnimationFrame(run)
   Scene.animate()
+
+  Instructions.render()
 }
 
 main()
